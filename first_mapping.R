@@ -1,7 +1,8 @@
 ####################################
-### FP Incidence Preliminary Map ###
+### FP Incidence Preliminary Mapping ###
 ####################################
 
+## The below was to enable rnaturalearth to function; would 
 #devtools::install_github("ropenscilabs/rnaturalearth")
 #devtools::install_github("ropenscilabs/rnaturalearthdata")
 #install.packages("rnaturalearthhires",
@@ -16,10 +17,9 @@ library(mapview)
 library(sf)
 
 
-# Directory fetch
-
-getwd()
-setwd("/Users/aidanperez/Documents/FP_incidence_CR/Scripts")
+## Directory fetch
+#getwd()
+#setwd("/Users/aidanperez/Documents/FP_incidence_CR/Scripts")
 
 ### load csv
 
@@ -30,7 +30,6 @@ summary(capture_data)
 glimpse(capture_data)
 
 # select only crystal river turtles & filter NA from Balazs score
-
 table(capture_data$Site)
 
 cd2 <- capture_data %>%
@@ -41,19 +40,19 @@ cd2 <- capture_data %>%
 table(cd2$Site)
 table(cd2$FP.Balazs.Score)
 
-#uspoly
+##uspoly
 states <- ne_states(country = "United States of America", returnclass = "sf")
 
-# fl shapefile
+## fl shapefile
 
 florida <- st_read("/Users/aidanperez/Documents/FP_incidence_CR/Mapping/fl_shapefile/Florida_Shoreline_(1_to_40%2C000_Scale).shp")
 
 
 ### Viz and interactive map 
 
-#cm.sf <- cd2 %>%
-#  drop_na(GPS_X, GPS_Y) %>% 
-#  st_as_sf(., coords = c("GPS_X", "GPS_Y"), crs = 4326)
+cm.sf <- cd2 %>%
+  drop_na(GPS_X, GPS_Y) %>% 
+  st_as_sf(., coords = c("GPS_X", "GPS_Y"), crs = 4326)
 
 # mapview(cm.sf, zcol = 'FP.Balazs.Score')
 
@@ -169,6 +168,7 @@ image_write(image = balazs_anim,
             path = "/Users/aidanperez/Documents/FP_incidence_CR/Mapping/prelim_maps/balazs_scores/animated_balazs_map.gif")
 
 
+## Cordinate map Balazs score incidence per year 
 dat<- capture_data %>%
   filter(Fibropapilloma.Visible == 'Yes')
 
